@@ -26,10 +26,6 @@ class Socket extends Emitter {
     _readyCompleter = Completer();
   }
 
-  void dispose() {
-    _wsSub?.cancel();
-  }
-
   Future<void> open() async {
     _ws = await WebSocket.connect(_url);
     _socketState = SocketState.opened;
@@ -75,6 +71,7 @@ class Socket extends Emitter {
 
   void close({int code = 1000, String reason = ''}) {
     _closed = true;
+    _wsSub?.cancel();
     _ws?.close(code, reason);
   }
 }

@@ -15,7 +15,8 @@ class Emitter {
 
   void once(dynamic event, Function func) {
     void handler(arg) {
-      off(event, handler);
+      // Avoid 'Concurrent modification during iteration' error
+      Future.microtask(() => off(event, handler));
       func(arg);
     }
 

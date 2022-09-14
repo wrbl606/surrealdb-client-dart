@@ -5,12 +5,12 @@ class Live extends Emitter {
   String? _id;
   final Surreal _db;
   final String _sql;
-  final List<String> _vars;
+  final Map<String, dynamic> _vars;
 
   Live({
     required Surreal db,
     required String sql,
-    List<String> vars = const [],
+    Map<String, dynamic> vars = const {},
   })  : _db = db,
         _sql = sql,
         _vars = vars {
