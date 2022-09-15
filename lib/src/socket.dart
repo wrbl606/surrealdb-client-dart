@@ -31,8 +31,12 @@ class Socket extends Emitter {
   }
 
   Future<void> open() async {
-    _ws = await WebSocket.connect(_url);
-    _reviver?.stop();
+    try {
+      _ws = await WebSocket.connect(_url);
+      _reviver?.stop();
+    } catch (_) {
+      return;
+    }
     _socketState = SocketState.opened;
     emit('open', null);
 
@@ -77,6 +81,7 @@ class Socket extends Emitter {
     String reason = '',
   }) async {
     _closed = true;
+    _reviver?.stop();
     _wsSub?.cancel();
     await _ws?.close(code, reason);
   }

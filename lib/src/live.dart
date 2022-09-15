@@ -3,7 +3,7 @@ import 'package:surrealdb_client/surrealdb_client.dart';
 
 /// Live query.
 class Live extends Emitter {
-  String? _id;
+  dynamic _id;
   final SurrealClient _db;
   final String _sql;
   final Map<String, dynamic> _vars;
@@ -18,11 +18,11 @@ class Live extends Emitter {
     _db.on('opened', (_) => open());
     _db.on('closed', (_) => _id = null);
     _db.on('notify', (e) {
-      if (e.query != _id) {
+      if (e['query'] != _id) {
         return;
       }
 
-      emit(e.action.toLowerCase(), e.result);
+      emit(e['action'].toLowerCase(), e['result']);
     });
   }
 

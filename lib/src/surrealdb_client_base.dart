@@ -203,7 +203,6 @@ class SurrealClient extends Emitter {
     return completer.future;
   }
 
-  @override
   Future kill(String query) {
     final id = _generateId();
     final completer = Completer();
@@ -226,7 +225,6 @@ class SurrealClient extends Emitter {
   }
 
   /// Runs a set of SurrealQL statements against the database.
-  @override
   Future<dynamic> query(String query, [Map<String, dynamic> vars = const {}]) {
     final id = _generateId();
     final completer = Completer();
