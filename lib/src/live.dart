@@ -1,14 +1,15 @@
 import 'package:surrealdb_client/src/emitter.dart';
-import 'package:surrealdb_client/src/surreal.dart';
+import 'package:surrealdb_client/surrealdb_client.dart';
 
+/// Live query.
 class Live extends Emitter {
   String? _id;
-  final Surreal _db;
+  final SurrealClient _db;
   final String _sql;
   final Map<String, dynamic> _vars;
 
   Live({
-    required Surreal db,
+    required SurrealClient db,
     required String sql,
     Map<String, dynamic> vars = const {},
   })  : _db = db,
@@ -25,10 +26,10 @@ class Live extends Emitter {
     });
   }
 
-  // If we want to kill the live query
-  // then we can kill it. Once a query
-  // has been killed it can be opened
-  // again by calling the open() method.
+  /// If we want to kill the live query
+  /// then we can kill it. Once a query
+  /// has been killed it can be opened
+  /// again by calling the open() method.
   Future kill() async {
     if (_id == null) {
       return Future.value();
@@ -39,9 +40,9 @@ class Live extends Emitter {
     return res;
   }
 
-  // If the live query has been manually
-  // killed, then calling the open()
-  // method will re-enable the query.
+  /// If the live query has been manually
+  /// killed, then calling the open()
+  /// method will re-enable the query.
   Future open() async {
     if (_id != null) {
       return Future.value();

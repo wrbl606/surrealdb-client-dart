@@ -2,15 +2,19 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:surrealdb_client/src/emitter.dart';
+import 'package:surrealdb_client/src/pinger.dart';
 
 enum SocketState { opened, closed }
 
+/// WebSocket wrapper with connection persistance
+/// mechanism.
 class Socket extends Emitter {
   final String _url;
   bool _closed = false;
   SocketState _socketState = SocketState.closed;
   WebSocket? _ws;
   StreamSubscription? _wsSub;
+  Reviver? _reviver;
 
   late Completer _readyCompleter;
   Future<void> get ready => _readyCompleter.future;
@@ -28,6 +32,7 @@ class Socket extends Emitter {
 
   Future<void> open() async {
     _ws = await WebSocket.connect(_url);
+    _reviver?.stop();
     _socketState = SocketState.opened;
     emit('open', null);
 
@@ -54,11 +59,9 @@ class Socket extends Emitter {
       // need to attempt to reconnect on a
       // regular basis until we are successful.
       if (!_closed) {
-        // FIXME: This may be working in JS because browsers
-        // do emit "close" event event after unsuccessful connection attempt
-        // but here the .connect() method will just fail
-        // and the code will not try to reconnect more than once.
-        Timer(const Duration(seconds: 2), () => open());
+        _reviver?.stop();
+        _reviver = Reviver();
+        _reviver?.start(() => open());
       }
     });
 
@@ -69,9 +72,12 @@ class Socket extends Emitter {
     _ws?.add(data);
   }
 
-  void close({int code = 1000, String reason = ''}) {
+  Future<void> close({
+    int code = 1000,
+    String reason = '',
+  }) async {
     _closed = true;
     _wsSub?.cancel();
-    _ws?.close(code, reason);
+    await _ws?.close(code, reason);
   }
 }

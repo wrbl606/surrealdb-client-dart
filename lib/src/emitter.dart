@@ -1,3 +1,4 @@
+/// JS emitter implementation.
 class Emitter {
   final Map<dynamic, List<Function>> _events = {};
 
@@ -32,9 +33,9 @@ class Emitter {
     }
   }
 
-  void removeAllListeners(List<dynamic> events) {
-    for (final event in events) {
-      _events[event]?.clear();
+  void removeAllListeners() {
+    for (final key in _events.keys) {
+      _events[key]?.clear();
     }
   }
 }
