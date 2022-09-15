@@ -1,16 +1,14 @@
 name: surrealdb_client
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# homepage: https://www.example.com
+description: Experimental Dart support for surrealdb.com.
+version: 0.0.1
+homepage: https://github.com/wrbl606/surrealdb-client-dart
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
 
-# dependencies:
-#   path: ^1.8.0
+dependencies:
+  objectid: ^2.1.0
 
 dev_dependencies:
   lints: ^2.0.0
   test: ^1.16.0
-dependencies:
-  objectid: ^2.1.0
