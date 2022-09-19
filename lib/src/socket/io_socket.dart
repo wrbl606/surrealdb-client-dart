@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:surrealdb_client/src/emitter.dart';
 import 'package:surrealdb_client/src/pinger.dart';
-import 'package:universal_io/io.dart';
 
 enum SocketState { opened, closed }
 

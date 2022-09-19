@@ -5,7 +5,7 @@ import 'package:surrealdb_client/src/emitter.dart';
 import 'package:surrealdb_client/src/id_generator.dart';
 import 'package:surrealdb_client/src/live.dart';
 import 'package:surrealdb_client/src/pinger.dart';
-import 'package:surrealdb_client/src/socket.dart';
+import 'socket/io_socket.dart' if (dart.library.html) 'socket/html_socket.dart';
 
 /// Client for a SurrealDB instance.
 ///
