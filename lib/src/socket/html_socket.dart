@@ -5,6 +5,8 @@ import 'package:surrealdb_client/src/emitter.dart';
 
 enum SocketState { opened, closed }
 
+/// WebSocket wrapper with connection persistance
+/// mechanism.
 class Socket extends Emitter {
   late final WebSocket _ws;
   final String _url;

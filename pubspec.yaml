@@ -1,6 +1,6 @@
 name: surrealdb_client
-description: Experimental Dart support for surrealdb.com.
-version: 0.0.1
+description: Experimental Dart support for SurrealDB - database, realtime API layer, and security permissions all-in-one. 
+version: 0.1.0
 homepage: https://github.com/wrbl606/surrealdb-client-dart
 
 environment:

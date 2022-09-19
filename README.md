@@ -50,6 +50,7 @@ Keep that in mind when considering this package as a foundation of your project.
 Contributions are welcome.
 
 Planned improvements:
-- [ ] Add web support
+
+- [x] Add web support
 - [ ] Add types to outputs
 - [ ] Provide streams for client events
