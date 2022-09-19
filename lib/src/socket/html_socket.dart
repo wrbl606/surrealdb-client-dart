@@ -28,7 +28,8 @@ class Socket extends Emitter {
   Future<void> open() async {
     _ws = WebSocket(_url);
 
-    _ws.addEventListener('message', (e) => emit('message', e));
+    _ws.addEventListener(
+        'message', (e) => emit('message', (e as MessageEvent).data));
     _ws.addEventListener('error', (e) => emit('error', e));
     _ws.addEventListener('close', (e) => emit('close', e));
     _ws.addEventListener('open', (e) => emit('open', e));
